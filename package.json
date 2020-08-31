@@ -1,0 +1,30 @@
+{
+  "name": "portfolio-track",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -r dotenv/config server.js",
+    "seed": "node -r dotenv/config ./src/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umasankar1999/portfolio-track.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/umasankar1999/portfolio-track/issues"
+  },
+  "homepage": "https://github.com/umasankar1999/portfolio-track#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "mongoose": "^5.10.2",
+    "mongoose-seed": "^0.6.0",
+    "nodemon": "^2.0.4"
+  }
+}
