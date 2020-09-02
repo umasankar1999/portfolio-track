@@ -1,0 +1,509 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a basic portfolio tracking API, where we can add a trade, update a trade and delete a trade. We can also see the current holdings, returns and portfolio.",
+    "version": "1.0.0",
+    "title": "Portfolio Tracking API"
+  },
+  "tags": [
+    {
+      "name": "Trades",
+      "description": "Deals about trade operations"
+    },
+    {
+      "name": "Portfolio",
+      "description": "Deals about portfolio operations"
+    },
+    {
+      "name": "Holdings",
+      "description": "Deals about holdings operations"
+    },
+    {
+      "name": "Returns",
+      "description": "Deals about cumulative returns"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/trades": {
+      "post": {
+        "tags": [
+          "Trades"
+        ],
+        "summary": "Add a new trade to the portfolio",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Trade object that contains all trade details",
+            "required": true,
+            "schema": {
+              "required": [
+                "ticker",
+                "noOfShares",
+                "price",
+                "typeOfTrade"
+              ],
+              "properties": {
+                "ticker": {
+                  "type": "string",
+                  "example": "TCS"
+                },
+                "noOfShares": {
+                  "type": "integer",
+                  "example": 10
+                },
+                "price": {
+                  "type": "integer",
+                  "example": 87.9
+                },
+                "typeOfTrade": {
+                  "type": "string",
+                  "description": "Trade type",
+                  "enum": [
+                    "buy",
+                    "sell"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contain response with trade Id",
+            "schema": {
+              "allOf": [
+                {
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "$ref": "#/definitions/Trade"
+                },
+                {
+                  "properties": {
+                    "updatedAt": {
+                      "type": "string",
+                      "example": null
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Contain errors object",
+            "schema": {
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "example": "s0ll"
+                      },
+                      "msg": {
+                        "type": "string",
+                        "example": "Invalid value"
+                      },
+                      "param": {
+                        "type": "string",
+                        "example": "typeOfTrade"
+                      },
+                      "location": {
+                        "type": "string",
+                        "example": "body"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trades/{tradeId}": {
+      "put": {
+        "tags": [
+          "Trades"
+        ],
+        "summary": "Update an existing trade",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tradeId",
+            "in": "path",
+            "required": true,
+            "description": "The trade's Id",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Trade object that contains all trade details",
+            "required": true,
+            "schema": {
+              "required": [
+                "ticker",
+                "noOfShares",
+                "price",
+                "typeOfTrade"
+              ],
+              "properties": {
+                "ticker": {
+                  "type": "string",
+                  "example": "TCS"
+                },
+                "noOfShares": {
+                  "type": "integer",
+                  "example": 10
+                },
+                "price": {
+                  "type": "integer",
+                  "example": 87.9
+                },
+                "typeOfTrade": {
+                  "type": "string",
+                  "description": "Trade type",
+                  "enum": [
+                    "buy",
+                    "sell"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contain response with trade Id",
+            "schema": {
+              "allOf": [
+                {
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "$ref": "#/definitions/Trade"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Contain errors object",
+            "schema": {
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "example": "s0ll"
+                      },
+                      "msg": {
+                        "type": "string",
+                        "example": "Invalid value"
+                      },
+                      "param": {
+                        "type": "string",
+                        "example": "typeOfTrade"
+                      },
+                      "location": {
+                        "type": "string",
+                        "example": "body"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Trades"
+        ],
+        "summary": "Deletes a trade",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tradeId",
+            "in": "path",
+            "required": true,
+            "description": "The trade's Id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contain response with trade Id",
+            "schema": {
+              "properties": {
+                "tradeId": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Contain errors object",
+            "schema": {
+              "properties": {
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "example": "123"
+                      },
+                      "msg": {
+                        "type": "string",
+                        "example": "Invalid value"
+                      },
+                      "param": {
+                        "type": "string",
+                        "example": "tradeId"
+                      },
+                      "location": {
+                        "type": "string",
+                        "example": "params"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/portfolio": {
+      "get": {
+        "tags": [
+          "Portfolio"
+        ],
+        "summary": "Get the all securities and trades corresponding to it",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Contain all securites and trades corresponding to a portfolio",
+            "schema": {
+              "allOf": [
+                {
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "$ref": "#/definitions/Securities"
+                },
+                {
+                  "properties": {
+                    "trades": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Trade"
+                      }
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "updatedAt": {
+                      "type": "string",
+                      "example": null
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/holdings": {
+      "get": {
+        "tags": [
+          "Holdings"
+        ],
+        "summary": "It is an aggregate view of all securities in the portfolio with its final quantity and average buy price.",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Contains an aggregate view of all securities in the portfolio with its final quantity and average buy price.",
+            "schema": {
+              "properties": {
+                "trades": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/definitions/Securities"
+                      },
+                      {
+                        "properties": {
+                          "updatedAt": {
+                            "type": "string",
+                            "example": null
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/returns": {
+      "get": {
+        "tags": [
+          "Returns"
+        ],
+        "summary": "It calculates cumulative returns of a portfolio",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Contains cumulative returns of a portfolio",
+            "schema": {
+              "properties": {
+                "totalReturns": {
+                  "type": "integer",
+                  "example": 100.5
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Trade": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "5f4a71db703f876cf07a8679"
+        },
+        "securityId": {
+          "type": "string",
+          "example": "5f4a71db703f876cf07c8676"
+        },
+        "ticker": {
+          "type": "string",
+          "example": "TCS"
+        },
+        "noOfShares": {
+          "type": "integer",
+          "example": 10
+        },
+        "price": {
+          "type": "integer",
+          "example": 87.9
+        },
+        "typeOfTrade": {
+          "type": "string",
+          "description": "Trade type",
+          "enum": [
+            "buy",
+            "sell"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2020-09-02T11:42:16.499+00:00"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2020-09-02T11:42:16.499+00:00"
+        }
+      }
+    },
+    "Securities": {
+      "type": "object",
+      "properties": {
+        "companyName": {
+          "type": "string",
+          "example": "Tata Consultancy Services"
+        },
+        "ticker": {
+          "type": "string",
+          "example": "TCS"
+        },
+        "avgBuyPrice": {
+          "type": "integer",
+          "example": 87.32
+        },
+        "quantity": {
+          "type": "integer",
+          "example": 10
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2020-09-02T11:42:16.499+00:00"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2020-09-02T11:42:16.499+00:00"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

@@ -17,7 +17,7 @@ const validateBody =  () =>  [
     return val > 0 ? true : false;
   }),
   // validates price property
-  body('price').exists().isInt().custom(val => {
+  body('price').exists().isNumeric().custom(val => {
     return val > 0 ? true : false;
   }),
   // validates typeOfTrade property

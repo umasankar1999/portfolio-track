@@ -1,5 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerDocument = require('./api-doc/swagger.json');
 
 const createMongoDbConnection = require('./config/mongoose');
 const Trades = require('./routes/tradeRoute');
@@ -17,6 +20,9 @@ app.use(bodyParser.json());
 app.get('/',(req,res)=>{
   res.send("Portfolio Tracking API")
 })
+
+// api documentation route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // routes
 app.use('/trades',Trades);
