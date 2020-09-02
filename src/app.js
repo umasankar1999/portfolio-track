@@ -14,6 +14,10 @@ createMongoDbConnection();
 
 app.use(bodyParser.json());
 
+app.get('/',(req,res)=>{
+  res.send("Portfolio Tracking API")
+})
+
 // routes
 app.use('/trades',Trades);
 app.use('/returns',Returns);
