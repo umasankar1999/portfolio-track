@@ -6,6 +6,7 @@ const Portfolio = express.Router();
 
 Portfolio.get('/',async (req,res)=>{
   try {
+    // send response from Portfolio controller
     res.json(await PortfolioController.getPortfolio());
   } catch (error) {
     console.log(err);

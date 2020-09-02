@@ -15,6 +15,7 @@ const Returns = express.Router();
 
 Returns.get('/',async (req,res)=>{
   try {
+    // send response from Return controller
     res.json(await ReturnController.fecthReturns());
   } catch (error) {
     console.log(err);

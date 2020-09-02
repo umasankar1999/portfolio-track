@@ -1,6 +1,6 @@
 const seeder = require('mongoose-seed');
 
-const seedData = require('./consts/seedData');
+const SEED_DATA = require('./consts/seedData');
 
 // connect to the MongoDb via mongoose
 seeder.connect(process.env.DB_URL, {
@@ -19,7 +19,7 @@ seeder.connect(process.env.DB_URL, {
   // Clear specified collections
   seeder.clearModels(['Securities','Trades'],()=>{
     //once documents are cleared, populate the models with data
-    seeder.populateModels(seedData,()=>{
+    seeder.populateModels(SEED_DATA,()=>{
       seeder.disconnect();
     })
   })

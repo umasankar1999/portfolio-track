@@ -6,6 +6,7 @@ const Holdings = express.Router();
 
 Holdings.get('/',async (req,res) => {
   try {
+    // send response from Holding controller
     res.json(await HoldingController.getHoldings());
   } catch (error) {
     console.log(err);

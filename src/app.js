@@ -9,10 +9,12 @@ const Portfolio = require('./routes/portfolioRoute');
 
 const app = express();
 
+// creates connection with mongodb server
 createMongoDbConnection();
 
 app.use(bodyParser.json());
 
+// routes
 app.use('/trades',Trades);
 app.use('/returns',Returns);
 app.use('/holdings',Holdings);
