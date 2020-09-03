@@ -143,7 +143,7 @@
         "tags": [
           "Trades"
         ],
-        "summary": "Update an existing trade",
+        "summary": "Update an existing trade, (Note: Before executing this call,please create a trade using above request.)",
         "description": "",
         "consumes": [
           "application/json"
